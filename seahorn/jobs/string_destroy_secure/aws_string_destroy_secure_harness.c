@@ -11,7 +11,7 @@
 
 int main(void) {
   struct aws_string *str =
-      ensure_string_is_allocated_bounded_length(MAX_STRING_LEN);
+      ensure_string_is_allocated_bounded_length(MAX_BUFFER_SIZE);
   char unsigned const *bytes = str->bytes;
   size_t len = str->len;
   /* Tell CBMC to keep the buffer live after the free */

@@ -9,7 +9,7 @@
 #include <utils.h>
 
 int main() {
-    struct aws_string *str = ensure_string_is_allocated_bounded_length(MAX_STRING_LEN);
+    struct aws_string *str = ensure_string_is_allocated_bounded_length(MAX_BUFFER_SIZE);
     struct aws_byte_cursor cursor = aws_byte_cursor_from_string(str);
     sassert(aws_string_is_valid(str));
     sassert(aws_byte_cursor_is_valid(&cursor));

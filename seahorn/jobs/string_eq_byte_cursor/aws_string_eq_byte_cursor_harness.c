@@ -11,7 +11,7 @@
 
 int main() {
     struct aws_string *str = nd_bool() ?
-            ensure_string_is_allocated_bounded_length(MAX_STRING_LEN) :
+            ensure_string_is_allocated_bounded_length(MAX_BUFFER_SIZE) :
             NULL;
     struct aws_byte_cursor cursor;
     initialize_byte_cursor(&cursor);

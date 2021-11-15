@@ -11,11 +11,11 @@
 
 int main() {
   struct aws_string *str =
-      nd_bool() ? ensure_string_is_allocated_bounded_length(MAX_STRING_LEN)
+      nd_bool() ? ensure_string_is_allocated_bounded_length(MAX_BUFFER_SIZE)
                 : NULL;
   size_t c_str_strlen = 0;
   const char *c_str =
-      ensure_c_str_is_nd_allocated(MAX_STRING_LEN, &c_str_strlen);
+      ensure_c_str_is_nd_allocated(MAX_BUFFER_SIZE, &c_str_strlen);
   if (aws_string_eq_c_str(str, c_str) && str && c_str) {
     sassert(aws_string_is_valid(str));
     sassert(aws_c_string_is_valid(c_str));

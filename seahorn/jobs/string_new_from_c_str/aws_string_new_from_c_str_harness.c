@@ -14,7 +14,7 @@ int main() {
   /* parameters */
   size_t str_len = 0;
   const char *c_str =
-      ensure_c_str_is_nd_allocated_safe(MAX_STRING_LEN, &str_len);
+      ensure_c_str_is_nd_allocated_safe(MAX_BUFFER_SIZE, &str_len);
   struct aws_allocator *allocator = sea_allocator();
 
   /* operation under verification */
