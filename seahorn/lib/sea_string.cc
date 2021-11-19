@@ -32,8 +32,21 @@ size_t strlen(const char *str) { return sea_strlen(str, sea_max_string_len()); }
 bool isEOF(int i, int N, const char *str) { return str[i] == '\0'; }
 
 size_t sea_strlen(const char *str, size_t max_size) {
-  size_t size = Loop<0, MAX_STRING_LEN, decltype(isEOF)>::call(isEOF, str);
-  return size <= max_size ? size : 0;
+  size_t i;
+  i = nd_size_t();
+  size_t max_string_len = sea_max_string_len();
+  assume(i < max_size && max_size <= max_string_len);
+  assume(str[i] == '\0');
+  // // The following assumption cannot be expressed
+  // // assume(forall j :: j < i ==> str[j] != '\0');
+  // // therefore, we say the following:
+  // size_t j = 0;
+  // for (j = 0; j < max_string_len; j++) {
+  //   if (j < i) {
+  //     assume(str[j] != '\0');
+  //   }
+  // }
+  return i;
 }
 
 // This function is here for posterity only.
