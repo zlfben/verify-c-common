@@ -43,3 +43,5 @@ verify_options:
   temp-dir: /tmp/verify-c-common
 # time and result stats
   horn-stats: true
+# bound
+  bound: @MAX_BUFFER_SIZE@

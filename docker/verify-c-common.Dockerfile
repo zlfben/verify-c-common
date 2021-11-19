@@ -9,7 +9,7 @@ USER root
 ## Install latest cmake
 RUN apt -y remove --purge cmake
 RUN apt -y update
-RUN apt -y install wget python3-pip
+RUN apt -y install wget python3-pip time
 RUN pip3 install cmake --upgrade
 
 ## clone verify-c-common repository

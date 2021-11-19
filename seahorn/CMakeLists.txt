@@ -354,7 +354,7 @@ endfunction()
 # Set upper bound on data structures
 set(MAX_LINKED_LIST_ITEM_ALLOCATION_SIZE 5)
 set(MAX_BUFFER_SIZE 4294967295)
-set(MAX_STRING_LEN 1023)  # this is actually bounded with 1024
+set(MAX_STRING_LEN 4294967295)  # this is actually bounded with 1024
 set(KLEE_MAX_STRING_SIZE 256)
 set(FUZZ_MAX_STRING_LEN 128)
 set(KLEE_MAX_SIZE 3) # Temporary set the maximum size of array list is 3 due to KLEE timeout
@@ -399,8 +399,6 @@ add_subdirectory(jobs/array_eq)
 add_subdirectory(jobs/array_eq_c_str)
 add_subdirectory(jobs/array_eq_c_str_ignore_case)
 add_subdirectory(jobs/array_eq_ignore_case)
-
-
 add_subdirectory(jobs/array_list_back)
 add_subdirectory(jobs/array_list_capacity)
 add_subdirectory(jobs/array_list_clean_up)
@@ -424,7 +422,6 @@ add_subdirectory(jobs/array_list_shrink_to_fit)
 add_subdirectory(jobs/array_list_sort)
 add_subdirectory(jobs/array_list_swap)
 add_subdirectory(jobs/array_list_swap_contents)
-
 add_subdirectory(jobs/byte_buf_advance)
 add_subdirectory(jobs/byte_buf_append)
 add_subdirectory(jobs/byte_buf_append_dynamic)
@@ -478,7 +475,6 @@ add_subdirectory(jobs/byte_cursor_read_u8)
 add_subdirectory(jobs/byte_cursor_right_trim_pred)
 add_subdirectory(jobs/byte_cursor_satisfies_pred)
 add_subdirectory(jobs/byte_cursor_trim_pred)
-
 add_subdirectory(jobs/string_bytes)
 add_subdirectory(jobs/string_compare)
 add_subdirectory(jobs/string_eq)
@@ -494,7 +490,7 @@ add_subdirectory(jobs/string_new_from_c_str)
 add_subdirectory(jobs/string_new_from_string)
 add_subdirectory(jobs/string_destroy)
 add_subdirectory(jobs/string_destroy_secure)
-#
+
 
 
 if(${SEA_WITH_BLEEDING_EDGE})
