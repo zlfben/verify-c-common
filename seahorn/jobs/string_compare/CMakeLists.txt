@@ -6,6 +6,7 @@ add_executable(
   aws_string_compare_harness.c
 )
 sea_attach_bc_link(string_compare)
+configure_file(sea.yaml sea.yaml @ONLY)
 sea_add_unsat_test(string_compare)
 
 # klee

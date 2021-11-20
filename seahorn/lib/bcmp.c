@@ -72,31 +72,80 @@ INLINE int memcmp(const void *s1, const void *s2, size_t n) {
   return 0;
 }
 
+void *memcpy_impl(void *dst, const void *src, size_t n) {
+    for (size_t i = 0; i < n; ++i)
+        ((char *)dst)[i] = ((const char *)src)[i];
+    return dst;
+}
+
 INLINE void *__memcpy_chk(void *dest, const void *src, size_t len,
                           size_t dstlen) {
   sassert(!(dstlen < len));
-  return __builtin_memcpy(dest, src, len);
+  return memcpy_impl(dest, src, len);
+}
+
+void *memcpy(void *dst, const void *src, size_t n) {
+  return memcpy_impl(dst, src, n);
+}
+
+void *memset_impl(void *s, int c, size_t n) {
+    if (n > 0) {
+        unsigned char *sp = (unsigned char *)s;
+        for (size_t i = 0; i < n; i++)
+            sp[i] = c & UINT8_MAX;
+    }
+    return s;
 }
 
 INLINE void *__memset_chk(void *dest, int c, size_t len, size_t dstlen) {
   sassert(!(dstlen < len));
-  return __builtin_memset(dest, c, len);
+  return memset_impl(dest, c, len);
 }
 
-/* on OSX memmove is a macro */
-#ifndef memmove
-INLINE void* memmove(void *dst, const void *src, size_t len)  {
-  sassert(sea_is_dereferenceable(dst, len));
-  sassert(sea_is_dereferenceable(src, len));
-  return __builtin_memmove(dst, src, len);
+void *memset(void *dest, int c, size_t len) {
+  return memset_impl(dest, c, len);
 }
-#endif
 
-/* on OSX memcpy is a macro */
-#ifndef memcpy
-INLINE void *memcpy(void *dst, const void *src, size_t len) {
-  sassert(sea_is_dereferenceable(dst, len));
-  sassert(sea_is_dereferenceable(src, len));
-  return __builtin_memcpy(dst, src, len);
+void *memmove_impl(void *dest, const void *src, size_t n) {
+    if (n > 0) {
+        (void)*(char *)dest;                           /* check that the memory is accessible */
+        (void)*(const char *)src;                      /* check that the memory is accessible */
+        (void)*(((unsigned char *)dest) + n - 1);      /* check that the memory is accessible */
+        (void)*(((const unsigned char *)src) + n - 1); /* check that the memory is accessible */
+
+        unsigned char *pd = dest;
+        const unsigned char *ps = src;
+        if ((ps) < (pd)) {
+            for (pd += n, ps += n; n--;)
+                *--pd = *--ps;
+        } else {
+            while (n) {
+                *pd++ = *ps++;
+                n--;
+            }
+        }
+    }
+    return dest;
 }
-#endif
+
+void *memmove(void *dest, const void *src, size_t n) {
+  return memmove_impl(dest, src, n);
+}
+
+// /* on OSX memmove is a macro */
+// #ifndef memmove
+// INLINE void* memmove(void *dst, const void *src, size_t len)  {
+//   sassert(sea_is_dereferenceable(dst, len));
+//   sassert(sea_is_dereferenceable(src, len));
+//   return __builtin_memmove(dst, src, len);
+// }
+// #endif
+
+// /* on OSX memcpy is a macro */
+// #ifndef memcpy
+// INLINE void *memcpy(void *dst, const void *src, size_t len) {
+//   sassert(sea_is_dereferenceable(dst, len));
+//   sassert(sea_is_dereferenceable(src, len));
+//   return memcpy_impl(dst, src, len);
+// }
+// #endif

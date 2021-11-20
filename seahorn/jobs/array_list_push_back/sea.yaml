@@ -1,3 +1,4 @@
 verify_options:
 # smtfd tactic is best, but maybe buggy in --cex mode
   horn-bmc-tactic: smt
+  bound: @MAX_ITEM_SIZE@
